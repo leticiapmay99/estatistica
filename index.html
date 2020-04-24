@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Estatística</title>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" href="./css/custom.css">
+	<script src="https://unpkg.com/mathjs@6.2.3/dist/math.js" type="text/javascript"></script>
+</head>
+<body>
+	 <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Estatística</a>
+      </nav>
+    </header>
+	<main role="main" class="container">
+		<div class="row">
+		  <div class="col-sm-6">
+		    <div class="card">
+		    	<div class="card-header text-center">
+		    		Entrada de Dados
+			  	</div>
+				<div class="card-body">
+					<label for="file">Choose file to upload</label>
+					<input type="file" id="file" name="file" accept=".csv, .txt">
+					<button id="calculate" class="btn btn-primary">Calcular</button>
+					<p id="output"></p>
+				</div>
+		    </div>
+		  </div>
+		  <div class="col-sm-6">
+		  	<div class="card-header text-center">
+		    	Médias
+			</div>
+		    <div class="card">
+		      <div class="card-body">
+		        <table class="table">
+				  <thead>
+				  <tbody>
+				    <tr>
+				      <th scope="row">Média</th>
+				      <td id="media"></td>
+				    </tr>
+					<tr>
+				      <th scope="row">Média Geometrica</th>
+				      <td id="mediaGeo"></td>
+				    </tr>
+					<tr>
+				      <th scope="row">Mediana</th>
+				      <td id="mediana"></td>
+				    </tr>
+				    <tr>
+				      <th scope="row">Moda</th>
+				      <td id="moda"></td>
+				    </tr>
+				    <tr>
+				      <th scope="row">Soma Desvio Padrão</th>
+				      <td id="somaDesvioPadrao"></td>
+				    </tr>
+				    <tr>
+				      <th scope="row">Desvio Padrão</th>
+				      <td id="desvioPadrao"></td>
+				    </tr>
+				    <tr>
+				      <th scope="row">Variância da Amostra</th>
+				      <td id="varianciaAmostra"></td>
+				    </tr>
+				    <tr>
+				      <th scope="row">Variância da População</th>
+				      <td id="varianciaPopulacao"></td>
+				    </tr>
+				    <tr>
+				      <th scope="row">Coeficiente de Variação</th>
+				      <td id="coeficiente"></td>
+				    </tr>
+				  </tbody>
+				</table>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</main>
+	<footer>
+		<script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+	  	<script src="./js/custom.js"></script>
+	</footer>
+</body>
+</html>
