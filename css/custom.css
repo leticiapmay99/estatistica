@@ -1,3 +1,15 @@
 .container{
 	margin-top: 100px;
 }
+.calculate{
+	width: 50%;
+    margin-top: 20px;
+    margin-left: 100px;
+}
+.valores-entrada{
+	display: inline-grid;
+}
+.format{
+	border-bottom: 1px solid;
+    border-top: 1px solid;
+}
