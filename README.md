@@ -1,6 +1,4 @@
-<div align="center">
-  <img src="https://gioam.github.io/estatistica/img/sinais.png" width=150px height=150px alt="Escalonadores" />
-</div>
+
 
 <h2 align="center">Estatística</h2>
 
