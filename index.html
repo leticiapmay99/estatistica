@@ -3,6 +3,7 @@
 <head>
 	<title>Estatística</title>
 	<meta charset="utf-8"/>
+	<link rel="icon" type="image/png" sizes="16x16" href="./img/sinais.png">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" href="./css/custom.css">
 	<script src="https://unpkg.com/mathjs@6.2.3/dist/math.js" type="text/javascript"></script>
@@ -14,25 +15,47 @@
       </nav>
     </header>
 	<main role="main" class="container">
+		<div style="margin-bottom: 50px;">
+			<div class="card text-center">
+				<div class="card-header text-center">
+					<img class="figuras" src="./img/multimidia.png" alt="" width="32" height="32">
+	    			Entrada de Dados
+		  		</div>
+				<div class="card-header">
+				<ul class="nav nav-tabs card-header-tabs">
+				  <li class="nav-item">
+				    <a id="arquivo" class="nav-link active" href="#">Arquivo</a>
+				  </li>
+				  <li class="nav-item">
+				    <a class="nav-link" id="texto" href="#">Texto</a>
+				  </li>
+				</ul>
+				</div>
+			  	<div class="card-body" id="card-arquivo" style="display: block">
+					<div class="valores-entrada">
+						<label for="file">Escolha um arquivo para enviar</label>
+						<input type="file" id="file" name="file" accept=".csv, .txt">
+						<button class="calculate btn btn-primary">Calcular</button>
+					</div>
+					<p id="output"></p>
+				</div>
+				<div class="card-body" id="card-texto" style="display: none">
+					<div class="valores-entrada">
+						<label for="file">Digite os valores separados por vírgula</label>
+						<input type="text" class="form-control" id="valores-media" name="file">
+						<button  class="calculate btn btn-primary">Calcular</button>
+					</div>
+					<p id="output"></p>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 		  <div class="col-sm-6">
 		    <div class="card">
 		    	<div class="card-header text-center">
-		    		Entrada de Dados
-			  	</div>
-				<div class="card-body">
-					<label for="file">Choose file to upload</label>
-					<input type="file" id="file" name="file" accept=".csv, .txt">
-					<button id="calculate" class="btn btn-primary">Calcular</button>
-					<p id="output"></p>
+		    		<img class="figuras" src="./img/escola.png" alt="" width="32" height="32">
+		    		Resultado das médias
 				</div>
-		    </div>
-		  </div>
-		  <div class="col-sm-6">
-		  	<div class="card-header text-center">
-		    	Médias
-			</div>
-		    <div class="card">
 		      <div class="card-body">
 		        <table class="table">
 				  <thead>
@@ -58,12 +81,16 @@
 				      <td id="somaDesvioPadrao"></td>
 				    </tr>
 				    <tr>
-				      <th scope="row">Desvio Padrão</th>
-				      <td id="desvioPadrao"></td>
+				      <th scope="row">Desvio Padrão da Amostra</th>
+				      <td id="desvioAmostra"></td>
 				    </tr>
 				    <tr>
 				      <th scope="row">Variância da Amostra</th>
 				      <td id="varianciaAmostra"></td>
+				    </tr>
+				     <tr>
+				      <th scope="row">Desvio Padrão da População</th>
+				      <td id="desvioPopulacao"></td>
 				    </tr>
 				    <tr>
 				      <th scope="row">Variância da População</th>
@@ -78,6 +105,55 @@
 		      </div>
 		    </div>
 		  </div>
+		  <div class="col-sm-6">
+		    <div class="card">
+		    	<div class="card-header text-center">
+		    		<img class="figuras" src="./img/linha.png" alt="" width="32" height="32">
+		    		Gráficos
+			  	</div>
+		    </div>
+		  </div>
+		</div>
+		<div style="margin-bottom: 50px; margin-top: 50px;">
+			<div class="card text-center">
+				<div class="card-header text-center">
+					<img class="figuras" src="./img/dados.png" alt="" width="32" height="32">
+	    			Distribuição de Frequências
+		  		</div>
+		  		<div class="form-row align-items-center" style="margin-left: 100px;margin-top: 30px;">
+				    <div class="col-sm-3 my-1">
+				      <input type="text" class="form-control" id="valor1" placeholder="Valor 1">
+				    </div>
+				    <div class="col-sm-3 my-1">
+						<input type="text" class="form-control" id="valor2" placeholder="Valor 2">
+				    </div>
+				    <div class="col-sm-3 my-1">
+						<input type="text" class="form-control" id="fi" placeholder="Fi">
+				    </div>
+				    <div class="col-auto my-1">
+				      <button type="submit" id="frequencias" class="btn btn-primary">Adicionar valor</button>
+				    </div>
+				  </div>
+			  	<div class="card-body">
+			  		<table class="table  table-borderless">
+					  <thead>
+					    <tr class="format">
+					      <th scope="col">Valor</th>
+					      <th scope="col">Fi</th>
+					      <th scope="col">Xi</th>
+					      <th scope="col">Fac</th>
+					      <th scope="col">fi(%)</th>
+					      <th scope="col">Xi.Fi</th>
+					    </tr>
+					  </thead>
+					  <tbody id="values">
+					  </tbody>
+					</table>
+					<div id="freq-media">
+					</div>
+					<button  class="limpar btn btn-primary" id="limpar">Limpar Tabela</button>
+				</div>
+			</div>
 		</div>
 	</main>
 	<footer>
