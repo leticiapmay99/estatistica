@@ -20,5 +20,5 @@ Simples aplicação demonstrativa dos cálculos de médias e tabela de frequênc
 
 ## Autores
 
-  | [<img src="https://avatars3.githubusercontent.com/u/34317514?s=400&v=4" width=115><br><sub>@GioAM</sub>](https://github.com/GioAM) | [<img src="https://avatars3.githubusercontent.com/u/43357500?s=400&v=4" width=115><br><sub>@leticiapmay99</sub>](https://github.com/leticiapmay99) |
+  | [<img src="https://avatars3.githubusercontent.com/u/9125404?s=460&v=4" width=115><br><sub>@cjambrosi</sub>](https://github.com/cjambrosi) | [<img src="https://avatars3.githubusercontent.com/u/34317514?s=400&v=4" width=115><br><sub>@GioAM</sub>](https://github.com/GioAM) | [<img src="https://avatars3.githubusercontent.com/u/43357500?s=400&v=4" width=115><br><sub>@leticiapmay99</sub>](https://github.com/leticiapmay99) |
   | :---: | :---: | :---: |
