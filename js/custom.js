@@ -1,6 +1,14 @@
+var frequencias = [] ;
+var id = 0;
+var facTotal = 0;
+function Frequencia(id, valor1, valor2, fi) {
+	this.id = id;
+	this.valor1 = valor1;
+	this.valor2 = valor2;
+	this.fi = fi;
+}
 $(".calculate").click(function(){
 	if($("#arquivo").hasClass("active")){
-		console.log("04");
 		var file = document.getElementById("file").files[0];
 		if (file) {
 		    var reader = new FileReader();
@@ -27,6 +35,7 @@ function calculate(valores){
 		}
 	}
 	if(valido){
+		limpar();
 		media(numeros);
 		mediana(numeros);
 		moda(numeros);
@@ -37,8 +46,35 @@ function calculate(valores){
 		varianciaPopulacao(numeros);
 		desvioPopulacao(numeros);
 		coeficiente(numeros);
-		
+		distribuirValores(numeros);
+		calcularTabela();
 	}
+}
+function distribuirValores(numeros){
+	var R = math.max(numeros) - math.min(numeros);
+	var K = Math.round(1 + 3.22 * Math.log10(numeros.length));
+	var H = parseInt(R/K) + 1;
+	var aux = math.min(numeros);
+	for (var i = 0; i < K; i++) {
+		var min = Math.round(aux);
+		var max = Math.round(aux + H);
+		var Fi = calcularFi(min, max, numeros);
+		facTotal = facTotal + Fi;
+		var frequencia = new Frequencia(id, min, max, Fi);
+		id ++;
+		frequencias.push(frequencia);
+		aux += H;
+	}
+  console.log(frequencias);
+}
+function calcularFi(min, max, numeros){
+	var fi = 0;
+	for(var r = 0; r < numeros.length; r++){
+		if(numeros[r] >= min && numeros[r] < max){
+			fi++;
+		}
+	}
+	return fi;
 }
 function media(numeros){
 	var media = math.mean(numeros);
@@ -89,24 +125,6 @@ function somaDesvioPadrao(numeros){
 	}
 	$('#somaDesvioPadrao').append(math.sum(desvio).toFixed(2));
 }
-
-var frequencias = [] ;
-var id = 1;
-var facTotal = 0;
-function Frequencia(id, valor1, valor2, fi) {
-	this.id = id;
-	this.valor1 = valor1;
-	this.valor2 = valor2;
-	this.fi = fi;
-}
-
-$("#frequencias").click(function(){
-	var frequencia = new Frequencia(id, parseInt($("#valor1").val()), parseInt($("#valor2").val()), parseInt($("#fi").val()));
-	facTotal = facTotal + parseInt($("#fi").val());
-	frequencias.push(frequencia);
-	calcularTabela();
-});
-
 function calcularTabela(){
 	var fac = 0;
 	var xifiTotal = 0;
@@ -129,7 +147,7 @@ function calcularTabela(){
 	$("#values").append(
 	"<tr class='format'><td>Total</td><td>" + fac + 
 	"</td><td>-</td><td>-</td><td>100.00</td><td>" + 
-	xifiTotal + "</td></tr>");
+	(xifiTotal).toFixed(2) + "</td></tr>");
 	$("#freq-media").append("<div  class='alert alert-success' role='alert'>Média: " + (xifiTotal/fac).toFixed(2) + "</div>");
 }
 
@@ -145,12 +163,20 @@ $("#texto").click(function(){
 	$("#card-texto").css("display", "block");
 	$("#card-arquivo").css("display", "none");
 });
-$("#limpar").click(function(){
+function limpar(){
+	id = 0;
+	frequencias = [];
+	facTotal = 0;
+	$('#media').html("");
+	$('#mediaGeo').html("");
+	$('#mediana').html("");
+	$('#moda').html("");
+	$('#desvioAmostra').html("");
+	$('#varianciaAmostra').html("");
+	$('#desvioPopulacao').html("");
+	$('#varianciaPopulacao').html("");
+	$('#somaDesvioPadrao').html("");
+	$('#coeficiente').html("");
 	$('#values').html("");
 	$("#freq-media").html("");
-	id = 1;
-	frequencias = [];
-	$("#valor1").val("");
-	$("#valor2").val("");
-	$("#fi").val("");
-});
+}
