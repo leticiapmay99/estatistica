@@ -1,6 +1,16 @@
 var frequencias = [] ;
 var id = 0;
 var facTotal = 0;
+
+
+let valoresGraficos = {
+	intervalos: [],
+	fi: [],
+	xi: [],
+	fac: [],
+	H: 0
+}
+
 function Frequencia(id, valor1, valor2, fi) {
 	this.id = id;
 	this.valor1 = valor1;
@@ -21,6 +31,10 @@ $(".calculate").click(function(){
 	}else{
 		var valores = $("#valores-media").val().split(',');
 		calculate(valores);
+
+		Histograma(FiltroSort(valoresGraficos.intervalos), valoresGraficos.fi);
+		PolignoFrequencia(valoresGraficos.xi, valoresGraficos.fi, valoresGraficos.H);
+		Ogiva(FiltroSort(valoresGraficos.intervalos), valoresGraficos.fac, valoresGraficos.H);
 	}
 });
 function calculate(valores){
@@ -54,6 +68,9 @@ function distribuirValores(numeros){
 	var R = math.max(numeros) - math.min(numeros);
 	var K = Math.round(1 + 3.22 * Math.log10(numeros.length));
 	var H = parseInt(R/K) + 1;
+
+	valoresGraficos.H = H;
+
 	var aux = math.min(numeros);
 	for (var i = 0; i < K; i++) {
 		var min = Math.round(aux);
@@ -135,6 +152,12 @@ function calcularTabela(){
 		fac = fac + frequencias[i].fi;
 		xifiTotal = xifiTotal + xi * frequencias[i].fi;
 
+		valoresGraficos.intervalos.push(frequencias[i].valor1);
+		valoresGraficos.intervalos.push(frequencias[i].valor2);
+		valoresGraficos.fi.push(frequencias[i].fi);
+		valoresGraficos.xi.push(xi);
+		valoresGraficos.fac.push(fac);
+
 		$("#values").append(
 		"<tr><td>"+ frequencias[i].valor1 + "├" + frequencias[i].valor2 + 
 		"</td><td>" + frequencias[i].fi + 
@@ -179,4 +202,146 @@ function limpar(){
 	$('#coeficiente').html("");
 	$('#values').html("");
 	$("#freq-media").html("");
+}
+
+
+
+function FiltroSort(arr) {
+	arr = arr.filter((elem, index, self) => {
+		return index == self.indexOf(elem);
+	});
+	return arr.sort((a, b) => { return a - b; });
+}
+
+
+function Histograma(intervalos, fi) {
+
+	let container = document.getElementById('histograma').getContext('2d');
+
+	_chart1 = new Chart(container, {
+		type: 'bar',
+		data: {
+			labels: intervalos.map(String),
+			datasets: [{
+				data: fi,
+				backgroundColor: fi.map(function() {
+					return '#616161'
+				}),
+				borderWidth: 0
+			}]
+		},
+		options: {
+			legend: {
+			display: false
+			},
+			scales: {
+			yAxes: [{
+				ticks: {
+					beginAtZero: true,
+					barPercentage: 1.0,
+					categoryPercentage: 1.0
+				}
+				}],
+			xAxes: [{
+				categoryPercentage: 1,
+				barPercentage: 1,
+				ticks: {
+					beginAtZero: true
+				}
+				}]
+			}
+		}
+	});
+}
+
+
+
+
+function PolignoFrequencia(xi, fi, H) {
+	let container = document.getElementById('poligono_frequencia');
+
+	let VerfArray = (xi[0] - H)  > 0 ? (xi[0] - H) : 0;
+
+	fi.unshift(0);
+	xi.unshift(VerfArray);
+	fi.push(0);
+	xi.push(xi[xi.length - 1] + H);
+
+	_chart2 = new Chart(container, {
+	type: 'line',
+	data: {
+		labels: xi.map(String),
+		datasets: [
+		{
+			data: fi,
+			borderColor: '#616161'
+		}
+		]
+	},
+	options: {
+		legend: {
+		display: false
+		},
+		scales: {
+		yAxes: [
+			{
+			ticks: {
+				beginAtZero: true
+			}
+			}
+		],
+		xAxes: [
+			{
+			ticks: {
+				beginAtZero: true
+			}
+			}
+		]
+		}
+	}
+	});
+}
+
+
+
+
+function Ogiva(fac, intervalos, H) {
+	let container = document.getElementById('ogiva');
+	let VerfArray = (intervalos[0] - H)  > 0 ? (intervalos[0] - H) : 0;
+	fac.unshift(0);
+	intervalos.unshift(VerfArray);
+
+	_chart3 = new Chart(container, {
+	type: 'line',
+	data: {
+		labels: intervalos.map(String),
+		datasets: [
+		{
+			data: fac,
+			borderColor: '#616161'
+		}
+		]
+	},
+	options: {
+		legend: {
+		display: false
+		},
+		scales: {
+		yAxes: [
+			{
+			ticks: {
+				beginAtZero: true
+			}
+			}
+		],
+		xAxes: [
+			{
+			ticks: {
+				beginAtZero: true
+			}
+			}
+		]
+		}
+	}
+	});
 }
